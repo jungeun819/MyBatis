@@ -34,6 +34,7 @@ public class StudentMapEnrollController extends AbstractController {
 		
 		// 2. 업무로직
 		int result = studentService.insertStudent(studentMap);
+		System.out.println("학생 정보입력 " + (result > 0 ? "성공!" : "실패ㅠ"));
 		
 		// 3. 사용자피드백
 		request.getSession().setAttribute("msg", "학생을 성공적으로 등록했습니다.");

@@ -39,6 +39,7 @@ public class StudentEnrollController extends AbstractController {
 		
 		// 2.업무로직
 		int result = studentService.insertStudent(student);
+		System.out.println("학생 정보입력 " + (result > 0 ? "성공!" : "실패ㅠ"));
 		
 		// 3.사용자 피드백전달
 		HttpSession session = request.getSession();

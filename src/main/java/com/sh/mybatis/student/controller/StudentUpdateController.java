@@ -36,6 +36,7 @@ public class StudentUpdateController extends AbstractController {
 		
 		// 2. 업무로직
 		int result = studentService.updateStudent(student);
+		System.out.println("학생 정보수정 " + (result > 0 ? "성공!" : "실패ㅠ"));
 		
 		// 3. 응답 json형식으로 출력
 		response.setContentType("application/json; charset=utf-8");

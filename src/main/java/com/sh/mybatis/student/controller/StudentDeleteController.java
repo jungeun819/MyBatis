@@ -27,7 +27,7 @@ public class StudentDeleteController extends AbstractController {
 		
 		// 2. 업무로직
 		int result = studentService.deleteStudent(no);
-		System.out.println("학생 정보 삭제 " + (result > 0 ? "성공!" : "실패ㅠ"));
+		System.out.println("학생 정보삭제 " + (result > 0 ? "성공!" : "실패ㅠ"));
 		
 		// 3. 응답 json형식으로 출력
 		response.setContentType("application/json; charset=utf-8");
