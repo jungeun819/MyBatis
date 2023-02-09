@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="student">
+	
+	<!-- 학생정보입력 -->
+	<!-- mapper의 타입은 별칭을 사용하지 않으면 항상 풀네임으로 적어야 한다. -->
+	<!-- 쿼리 값대입은 #{property이름} 표현식을 사용한다. -->
+	<insert id="insertStudent">
+		insert into
+			student(no, name, tel)
+		values(
+			seq_student_no.nextval, #{name}, #{tel}
+		)
+	</insert>
+
+	<!-- 전체학생수조회 -->	
+	<!-- select태그 사용시 resultType, resultMap속성을 반드시 작성해야 한다. -->
+	<!--  내장 별칭 -  int : Integer / _int : int -->
+	<select id="getTotalCount" resultType="_int">
+		select
+			count(*)
+		from
+			student
+		where
+			deleted_at is null
+	</select>
+	
+	<!-- 특정 학생 조회(dto) -->
+	<!-- <select id="selectOneStudent" resultType="student"> -->
+	<select id="selectOneStudent" resultMap="studentDtoMap">
+		select
+			*
+		from
+			student
+		where
+			deleted_at is null
+			and
+			no = #{no}
+	</select>
+	<resultMap type="student" id="studentDtoMap">
+		<!-- 
+		<id column="NO" property="no" />
+		<result column="NAME" property="name"/>
+		<result column="TEL" property="tel"/>
+		<result column="CREATED_AT" property="createdAt"/>
+		<result column="UPDATED_AT" property="updatedAt"/>
+		<result column="DELETED_AT" property="deletedAt"/>
+		-->
+	</resultMap>
+	
+	<!-- 특정 학생 조회(map) -->
+	<!-- <select id="selectOneStudentMap" resultType="map"> -->
+	<select id="selectOneStudentMap" resultMap="studentMap">
+		select
+			no, name, tel
+		from
+			student
+		where
+			deleted_at is null
+			and
+			no = #{no}
+	</select>
+	<!-- resultMap태그 결과집합(ResultSet)의 행별 자바객체 매핑을 처리하는 태그 -->
+	<resultMap type="map" id="studentMap">
+		<id column="NO" property="no" />
+		<result column="NAME" property="name"/>
+		<result column="TEL" property="tel"/>
+		<result column="CREATED_AT" property="createdAt"/>
+		<result column="UPDATED_AT" property="updatedAt"/>
+		<result column="DELETED_AT" property="deletedAt"/>
+	</resultMap>
+	
+	<!-- 학생정보수정 -->
+	<update id="updateStudent">
+		update
+			student
+		set
+			name = #{name},
+			tel = #{tel},
+			updated_at = sysdate
+		where
+			deleted_at is null
+			and
+			no = #{no}
+	</update>
+	
+	<!-- 학생정보삭제 -->
+	<update id="deleteStudent">
+		update
+			student
+		set
+			 deleted_at = sysdate
+		where
+			deleted_at is null
+			and
+			no = #{no}
+	</update>
+	
+</mapper>
