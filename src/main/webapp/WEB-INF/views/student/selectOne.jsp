@@ -131,7 +131,7 @@ table.tbl-student tr:last-of-type td:first-child{text-align:center;}
 			success(data){
 				console.log(data);
 				if(data > 0) alert("해당 학생의 정보를 수정했습니다😆");
-				else alert("해당 학생 정보 수정에 실패했습니다😣")
+				else alert("해당 학생의 정보 수정에 실패했습니다😣")
 				
 				/* 초기화 */
 				frm.no.value = "";
